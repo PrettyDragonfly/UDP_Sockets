@@ -1,0 +1,1 @@
+Pour tester mon programme de la question précédente, je lance mon serveur ainsi que mes 2 clients dans 3 terminaux différents. J'affiche les messages reçus par le serveur avec le port sur lequel ils sont arrivés et le port sur lequel le serveur les renvoie.

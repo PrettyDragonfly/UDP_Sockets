@@ -11,6 +11,7 @@ sockets = [mysocket1, mysocket2]
 while True:
     readable, writable, errored = select.select(sockets, [], [])
 
+    # question 3: pas generaliste, seulement 2 sockets avec ports rentres manuellement
     if mysocket1 in readable:
         (message, client_address) = mysocket1.recvfrom(100)
         mysocket1.sendto(message, (client_address[0], 2001))

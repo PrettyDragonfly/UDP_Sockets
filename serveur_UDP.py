@@ -13,10 +13,14 @@ while True:
 
     if mysocket1 in readable:
         (message, client_address) = mysocket1.recvfrom(100)
-        mysocket1.sendto(message, (client_address[0], client_address[1] + 1))
+        mysocket1.sendto(message, (client_address[0], 2001))
+        print("J'ai reçu :",message," sur le port ", client_address[0],
+               " et je l'ai renvoyé sur le port 2001")
     else:
         (message, client_address) = mysocket2.recvfrom(100)
-        mysocket2.sendto(message, (client_address[0], client_address[1] + 1))
+        mysocket2.sendto(message, (client_address[0], 2003))
+        print("J'ai reçu :", message, " sur le port ", client_address[0],
+              " et je l'ai renvoyé sur le port 2003")
 
 mysocket1.close()
 mysocket2.close()

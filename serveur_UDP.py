@@ -1,27 +1,23 @@
 from socket import *
 import select
 
-mysocket1 = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)
-mysocket2 = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)
+sockets = {}
 
-mysocket1.bind(('', 2000))
-mysocket2.bind(('', 2002))
+for i in range(2000,2021,2):
+    print(i)
+    sockets[i] = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP)
+    sockets[i].bind(('', i))
+    print(sockets[i])
 
-sockets = [mysocket1, mysocket2]
 while True:
-    readable, writable, errored = select.select(sockets, [], [])
+    readable, writable, errored = select.select(sockets.values(), [], [])
 
-    # question 3: pas generaliste, seulement 2 sockets avec ports rentres manuellement
-    if mysocket1 in readable:
-        (message, client_address) = mysocket1.recvfrom(100)
-        mysocket1.sendto(message, (client_address[0], 2001))
-        print("J'ai reçu :",message," sur le port ", client_address[0],
-               " et je l'ai renvoyé sur le port 2001")
-    else:
-        (message, client_address) = mysocket2.recvfrom(100)
-        mysocket2.sendto(message, (client_address[0], 2003))
-        print("J'ai reçu :", message, " sur le port ", client_address[0],
-              " et je l'ai renvoyé sur le port 2003")
+    for sock in sockets.values():
+        if sock in readable:
+            (message, client_address) = sock.recvfrom(100)
+            sock.sendto(message, (client_address[0], 2001))
+            print("J'ai reçu :", message, " sur le port ", sock.,
+                  " et je l'ai renvoyé sur le port 2001")
 
-mysocket1.close()
-mysocket2.close()
+for i in range(2000,2003,2):
+    sockets[i].close()

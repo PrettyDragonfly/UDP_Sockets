@@ -24,7 +24,7 @@ while True:
                   " et je l'ai renvoyé sur le port ", port+1)
             except:
                 print("Erreur lors de la réception du message")
-                break
+                continue
 
             try:
                 sock.sendto(message, (client_address[0], port + 1))

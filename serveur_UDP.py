@@ -21,9 +21,6 @@ while True:
             try:
                 (message, client_address) = sock.recvfrom(100)
                 add, port = sock.getsockname()
-                sock.sendto(message, (client_address[0], port+1))
-                print("J'ai reçu :", message, " sur le port ", port,
-                  " et je l'ai renvoyé sur le port ", port+1)
             except:
                 print("Erreur lors de la réception du message")
                 continue
